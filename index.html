@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Discord Server Bau | Bezahlung mit PS5 Karten</title>
+    <title>Finn's Discord Server | Kostenloser Service</title>
     <style>
         * {
             margin: 0;
@@ -22,10 +22,11 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             width: 100%;
         }
 
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 3rem;
@@ -45,13 +46,13 @@
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #FFFFFF, #b9c3ff);
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #b9c3ff, #8b9aff);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
 
         .sub {
@@ -60,6 +61,19 @@
             font-size: 1.1rem;
         }
 
+        .free-badge {
+            display: inline-block;
+            background: linear-gradient(95deg, #2ecc71, #27ae60);
+            padding: 0.3rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        /* Grid */
         .grid {
             display: flex;
             flex-wrap: wrap;
@@ -72,58 +86,62 @@
             background: rgba(20, 24, 35, 0.7);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
-            padding: 1.8rem;
-            width: 280px;
-            transition: all 0.25s ease;
+            padding: 2rem 1.8rem;
+            width: 300px;
+            transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(88, 101, 242, 0.4);
-            background: rgba(25, 30, 45, 0.8);
+            transform: translateY(-8px);
+            border-color: rgba(88, 101, 242, 0.5);
+            background: rgba(25, 30, 45, 0.85);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.7);
         }
 
         .icon {
-            font-size: 3rem;
-            margin-bottom: 0.75rem;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
         }
 
-        .price {
-            font-size: 2.2rem;
-            font-weight: 800;
+        .card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
             color: white;
-            margin: 0.75rem 0;
+            margin-bottom: 0.5rem;
         }
 
-        .price span {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #9ca3cf;
+        .price-free {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(95deg, #2ecc71, #27ae60);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.5rem 0;
         }
 
-        .leistungen {
+        .features {
             list-style: none;
-            margin: 1rem 0 1.8rem;
+            margin: 1.5rem 0;
             text-align: left;
-            padding-left: 0.2rem;
         }
 
-        .leistungen li {
+        .features li {
             color: #cbd5ff;
             font-size: 0.85rem;
-            margin: 0.6rem 0;
+            margin: 0.7rem 0;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .leistungen li::before {
-            content: "✓";
-            color: #2ecc71;
-            font-weight: bold;
+        .features li::before {
+            content: "✨";
+            color: #8b9aff;
+            font-size: 0.9rem;
         }
 
         .btn {
@@ -133,34 +151,47 @@
             padding: 0.9rem 0;
             border-radius: 60px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: white;
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn:hover {
             background: linear-gradient(95deg, #6c7aff, #5b67e0);
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
+        /* Discord Box */
         .discord-box {
             background: rgba(0, 0, 0, 0.45);
             backdrop-filter: blur(8px);
             border-radius: 1.5rem;
-            padding: 1.3rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
             border: 1px solid rgba(88, 101, 242, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .discord-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .discord-name {
             background: #1e212e;
-            padding: 0.5rem 1.2rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 40px;
             font-family: monospace;
             font-size: 1.2rem;
@@ -168,20 +199,51 @@
             color: #e0e5ff;
             border: 1px solid #5865f2;
             cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .discord-name:hover {
+            background: #2c2f40;
         }
 
         .copy-btn {
             background: none;
             border: 1px solid #5865f2;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
             color: #b9c2ff;
             cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
         }
 
         .copy-btn:hover {
             background: #5865f2;
             color: white;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #8b9aff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6b7299;
         }
 
         .howto {
@@ -208,6 +270,7 @@
 
         @media (max-width: 700px) {
             h1 { font-size: 2rem; }
+            .card { width: 280px; }
             .discord-box { flex-direction: column; align-items: flex-start; }
         }
     </style>
@@ -218,96 +281,152 @@
     <div class="header">
         <div class="badge">🎮 DISCORD SERVER SERVICE</div>
         <h1>Ich baue deinen Server</h1>
-        <div class="sub">Bezahle mit PS5 Karten – du schickst mir den Code, ich mache den Server</div>
+        <div class="sub">Komplett kostenlos • Schnell • Modern</div>
+        <div class="free-badge">✨ 100% KOSTENLOS ✨</div>
     </div>
 
     <div class="grid">
         <!-- Basic -->
         <div class="card">
             <div class="icon">🎮</div>
-            <div class="price">5<span>€ PS5 Karte</span></div>
-            <ul class="leistungen">
+            <h3>Basic</h3>
+            <div class="price-free">GRATIS</div>
+            <ul class="features">
                 <li>Kompletter Discord Server</li>
                 <li>Channels & Kategorien</li>
                 <li>Rollen & Berechtigungen</li>
                 <li>Willkommens-Setup</li>
             </ul>
-            <button class="btn" data-price="5">Server bauen – 5€</button>
+            <button class="btn" data-package="Basic">📦 Server erstellen</button>
         </div>
 
         <!-- Premium mit Bots -->
         <div class="card">
             <div class="icon">🤖✨</div>
-            <div class="price">10<span>€ PS5 Karte</span></div>
-            <ul class="leistungen">
+            <h3>Premium</h3>
+            <div class="price-free">GRATIS</div>
+            <ul class="features">
                 <li>Alles aus Basic</li>
-                <li>✅ Bis zu 8 Bots</li>
-                <li>✅ Musik / Mod / Level Bots</li>
-                <li>✅ Komplette Einrichtung</li>
+                <li>Bis zu 8 Bots</li>
+                <li>Musik / Mod / Level Bots</li>
+                <li>Komplette Einrichtung</li>
                 <li>Ticket System</li>
             </ul>
-            <button class="btn" data-price="10">Server + Bots – 10€</button>
+            <button class="btn" data-package="Premium">🤖 Server + Bots</button>
         </div>
 
-        <!-- Ultra mit allem -->
+        <!-- Ultra -->
         <div class="card">
             <div class="icon">🏆🔥</div>
-            <div class="price">20<span>€ PS5 Karte</span></div>
-            <ul class="leistungen">
+            <h3>Ultra</h3>
+            <div class="price-free">GRATIS</div>
+            <ul class="features">
                 <li>Alles aus Premium</li>
-                <li>✅ Unbegrenzte Bots</li>
-                <li>✅ Eigene Bot-Programmierung</li>
-                <li>✅ Wirtschaft / Level / Shop</li>
-                <li>✅ 24/7 Support danach</li>
+                <li>Unbegrenzte Bots</li>
+                <li>Eigene Bot-Programmierung</li>
+                <li>Wirtschaft / Level / Shop</li>
+                <li>24/7 Support danach</li>
             </ul>
-            <button class="btn" data-price="20">Ultra Server – 20€</button>
+            <button class="btn" data-package="Ultra">👑 Ultra Server</button>
         </div>
     </div>
 
     <div class="discord-box">
-        <span>📩 Schick mir den PS5 Code auf Discord:</span>
-        <div class="discord-name" id="discordUser">finn12345_3</div>
-        <button class="copy-btn" id="copyBtn">Kopieren</button>
+        <div class="discord-info">
+            <span style="font-size: 1.5rem;">💬</span>
+            <span style="font-weight: 500;">Einfach anschreiben auf Discord:</span>
+            <div class="discord-name" id="discordUser">finn12345_3</div>
+            <button class="copy-btn" id="copyBtn">📋 Kopieren</button>
+        </div>
+        <div class="info-note" style="color:#6b7299; font-size:0.8rem;">
+            🔥 Antwort innerhalb weniger Minuten
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Server erstellt</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">⭐ 5.0</div>
+            <div class="stat-label">Bewertung</div>
+        </div>
     </div>
 
     <div class="howto">
-        ⚡ <strong>So einfach geht's:</strong> Paket wählen → Discord öffnen → PS5 Code schicken → <strong>Ich baue dir den Server + Bots</strong>
+        ⚡ <strong>So einfach geht's:</strong> Paket wählen → Discord öffnen → mir schreiben → <strong>Ich baue dir den Server KOSTENLOS</strong>
     </div>
 
     <footer>
-        🔥 Discord Server Erstellung · Bezahlung mit PS5 Guthaben Karten · Du schickst Code → Ich mache Server
+        🔥 100% Kostenloser Discord Server Service · Erstellt von finn12345_3 · Schnell & Zuverlässig
     </footer>
 </div>
 
 <script>
     const USERNAME = "finn12345_3";
 
-    // Kopieren
-    document.getElementById('copyBtn').addEventListener('click', () => {
-        navigator.clipboard.writeText(USERNAME);
-        const btn = document.getElementById('copyBtn');
-        btn.innerText = "✅ Kopiert!";
-        setTimeout(() => btn.innerText = "Kopieren", 1500);
+    // Kopieren Funktion
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(USERNAME);
+            const btn = document.getElementById('copyBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "✅ Kopiert!";
+            setTimeout(() => btn.innerText = originalText, 2000);
+        } catch (err) {
+            alert("Manuell kopieren: " + USERNAME);
+        }
     });
 
     // Discord öffnen
     function openDiscord() {
-        window.open(`discord://-/friends?find=${USERNAME}`, '_blank');
+        const discordLink = `discord://-/users/${USERNAME}`;
+        const webLink = `https://discord.com/users/${USERNAME}`;
+        
+        // Versuche App zu öffnen
+        window.open(discordLink, '_blank');
+        
+        // Fallback nach 500ms
         setTimeout(() => {
-            alert("Discord öffnet sich nicht? Füge manuell hinzu: " + USERNAME);
+            const fallback = confirm("Discord App öffnet sich nicht? Möchtest du Discord im Browser öffnen?");
+            if (fallback) {
+                window.open(webLink, '_blank');
+            }
         }, 500);
     }
 
     // Discord Name klick
     document.getElementById('discordUser').addEventListener('click', openDiscord);
 
-    // Kauf-Buttons
+    // Kauf-Buttons (jetzt kostenlos)
     document.querySelectorAll('.btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const price = btn.getAttribute('data-price');
-            const bestätigung = confirm(`Du möchtest den Server für ${price}€ (PS5 Karte) bauen lassen?\n\nAblauf: Du schickst mir den Code auf Discord → Ich baue dir den kompletten Server.`);
-            if (bestätigung) {
+            const packageName = btn.getAttribute('data-package');
+            const confirmMsg = `✨ Du hast das ${packageName}-Paket ausgewählt (KOSTENLOS!)\n\n📌 Ablauf:\n1. Discord wird geöffnet\n2. Du schreibst mir: "Hey, ich möchte das ${packageName}-Paket"\n3. Ich baue dir den Server + Bots\n\nJetzt Discord öffnen?`;
+            
+            if (confirm(confirmMsg)) {
                 openDiscord();
+                
+                // Erfolgs-Toast
+                const toast = document.createElement('div');
+                toast.textContent = `✅ ${packageName}-Paket ausgewählt! Schreib mir auf Discord.`;
+                toast.style.position = 'fixed';
+                toast.style.bottom = '80px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = '#2ecc71';
+                toast.style.color = '#fff';
+                toast.style.padding = '10px 20px';
+                toast.style.borderRadius = '40px';
+                toast.style.fontWeight = 'bold';
+                toast.style.zIndex = '9999';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
             }
         });
     });
