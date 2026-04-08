@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Finn's Discord Server | Kostenloser Service</title>
+    <title>Finn's Discord Server | Kostenloser Service mit Limits</title>
     <style>
         * {
             margin: 0;
@@ -26,7 +26,6 @@
             width: 100%;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 3rem;
@@ -73,7 +72,6 @@
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
 
-        /* Grid */
         .grid {
             display: flex;
             flex-wrap: wrap;
@@ -87,7 +85,7 @@
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
-            width: 300px;
+            width: 320px;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
@@ -95,10 +93,8 @@
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: rgba(88, 101, 242, 0.5);
-            background: rgba(25, 30, 45, 0.85);
-            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.7);
         }
 
         .icon {
@@ -114,7 +110,7 @@
         }
 
         .price-free {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             background: linear-gradient(95deg, #2ecc71, #27ae60);
             background-clip: text;
@@ -123,16 +119,41 @@
             margin: 0.5rem 0;
         }
 
+        .limit-info {
+            font-size: 0.8rem;
+            color: #8b9aff;
+            background: rgba(88, 101, 242, 0.2);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .usage-counter {
+            font-size: 0.85rem;
+            color: #b9c2e0;
+            margin: 0.5rem 0;
+            background: rgba(0,0,0,0.3);
+            padding: 0.3rem;
+            border-radius: 30px;
+        }
+
+        .usage-counter span {
+            font-weight: 800;
+            color: #2ecc71;
+            font-size: 1.1rem;
+        }
+
         .features {
             list-style: none;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
             text-align: left;
         }
 
         .features li {
             color: #cbd5ff;
             font-size: 0.85rem;
-            margin: 0.7rem 0;
+            margin: 0.6rem 0;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -162,12 +183,18 @@
             gap: 8px;
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             background: linear-gradient(95deg, #6c7aff, #5b67e0);
             transform: scale(0.97);
         }
 
-        /* Discord Box */
+        .btn:disabled {
+            background: linear-gradient(95deg, #3a3f5e, #2d304a);
+            cursor: not-allowed;
+            opacity: 0.6;
+            box-shadow: none;
+        }
+
         .discord-box {
             background: rgba(0, 0, 0, 0.45);
             backdrop-filter: blur(8px);
@@ -222,28 +249,19 @@
             color: white;
         }
 
-        /* Stats */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #8b9aff;
-        }
-
-        .stat-label {
+        .reset-btn {
+            background: rgba(255, 70, 85, 0.2);
+            border: 1px solid rgba(255, 70, 85, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            color: #ff6b6b;
+            cursor: pointer;
             font-size: 0.8rem;
-            color: #6b7299;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255, 70, 85, 0.4);
         }
 
         .howto {
@@ -281,30 +299,34 @@
     <div class="header">
         <div class="badge">🎮 DISCORD SERVER SERVICE</div>
         <h1>Ich baue deinen Server</h1>
-        <div class="sub">Komplett kostenlos • Schnell • Modern</div>
+        <div class="sub">Komplett kostenlos • Mit Nutzungslimits</div>
         <div class="free-badge">✨ 100% KOSTENLOS ✨</div>
     </div>
 
     <div class="grid">
-        <!-- Basic -->
-        <div class="card">
+        <!-- BASIC: 10x -->
+        <div class="card" id="card-basic">
             <div class="icon">🎮</div>
             <h3>Basic</h3>
             <div class="price-free">GRATIS</div>
+            <div class="limit-info">📦 Max. 10x pro Kunde</div>
+            <div class="usage-counter" id="basic-usage">Verbleibend: <span id="basic-left">10</span> / 10</div>
             <ul class="features">
                 <li>Kompletter Discord Server</li>
                 <li>Channels & Kategorien</li>
                 <li>Rollen & Berechtigungen</li>
                 <li>Willkommens-Setup</li>
             </ul>
-            <button class="btn" data-package="Basic">📦 Server erstellen</button>
+            <button class="btn" id="btn-basic" data-package="Basic" data-max="10">📦 Server erstellen</button>
         </div>
 
-        <!-- Premium mit Bots -->
-        <div class="card">
+        <!-- PREMIUM: 4x -->
+        <div class="card" id="card-premium">
             <div class="icon">🤖✨</div>
             <h3>Premium</h3>
             <div class="price-free">GRATIS</div>
+            <div class="limit-info">🤖 Max. 4x pro Kunde</div>
+            <div class="usage-counter" id="premium-usage">Verbleibend: <span id="premium-left">4</span> / 4</div>
             <ul class="features">
                 <li>Alles aus Basic</li>
                 <li>Bis zu 8 Bots</li>
@@ -312,14 +334,16 @@
                 <li>Komplette Einrichtung</li>
                 <li>Ticket System</li>
             </ul>
-            <button class="btn" data-package="Premium">🤖 Server + Bots</button>
+            <button class="btn" id="btn-premium" data-package="Premium" data-max="4">🤖 Server + Bots</button>
         </div>
 
-        <!-- Ultra -->
-        <div class="card">
+        <!-- ULTRA: 2x -->
+        <div class="card" id="card-ultra">
             <div class="icon">🏆🔥</div>
             <h3>Ultra</h3>
             <div class="price-free">GRATIS</div>
+            <div class="limit-info">👑 Max. 2x pro Kunde</div>
+            <div class="usage-counter" id="ultra-usage">Verbleibend: <span id="ultra-left">2</span> / 2</div>
             <ul class="features">
                 <li>Alles aus Premium</li>
                 <li>Unbegrenzte Bots</li>
@@ -327,7 +351,7 @@
                 <li>Wirtschaft / Level / Shop</li>
                 <li>24/7 Support danach</li>
             </ul>
-            <button class="btn" data-package="Ultra">👑 Ultra Server</button>
+            <button class="btn" id="btn-ultra" data-package="Ultra" data-max="2">👑 Ultra Server</button>
         </div>
     </div>
 
@@ -338,38 +362,113 @@
             <div class="discord-name" id="discordUser">finn12345_3</div>
             <button class="copy-btn" id="copyBtn">📋 Kopieren</button>
         </div>
-        <div class="info-note" style="color:#6b7299; font-size:0.8rem;">
-            🔥 Antwort innerhalb weniger Minuten
-        </div>
-    </div>
-
-    <div class="stats">
-        <div class="stat">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">Server erstellt</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">⭐ 5.0</div>
-            <div class="stat-label">Bewertung</div>
-        </div>
+        <button class="reset-btn" id="resetBtn">🔄 Limits zurücksetzen (Admin)</button>
     </div>
 
     <div class="howto">
-        ⚡ <strong>So einfach geht's:</strong> Paket wählen → Discord öffnen → mir schreiben → <strong>Ich baue dir den Server KOSTENLOS</strong>
+        ⚡ <strong>So einfach geht's:</strong> Paket wählen → Discord öffnen → mir schreiben → <strong>Ich baue dir den Server KOSTENLOS</strong><br>
+        📊 Jeder Kunde hat Limits: Basic (10x) | Premium (4x) | Ultra (2x)
     </div>
 
     <footer>
-        🔥 100% Kostenloser Discord Server Service · Erstellt von finn12345_3 · Schnell & Zuverlässig
+        🔥 100% Kostenloser Discord Server Service · Erstellt von finn12345_3 · Limits pro Kunde
     </footer>
 </div>
 
 <script>
     const USERNAME = "finn12345_3";
-
+    
+    // Limits definieren
+    const LIMITS = {
+        Basic: 10,
+        Premium: 4,
+        Ultra: 2
+    };
+    
+    // Storage Schlüssel
+    function getStorageKey(packageName) {
+        return `usage_${packageName}`;
+    }
+    
+    // Aktuelle Nutzung abrufen
+    function getUsage(packageName) {
+        const key = getStorageKey(packageName);
+        const saved = localStorage.getItem(key);
+        return saved ? parseInt(saved) : 0;
+    }
+    
+    // Nutzung erhöhen
+    function incrementUsage(packageName) {
+        const key = getStorageKey(packageName);
+        const current = getUsage(packageName);
+        localStorage.setItem(key, current + 1);
+        return current + 1;
+    }
+    
+    // Verbleibende Nutzungen
+    function getRemaining(packageName) {
+        const max = LIMITS[packageName];
+        const used = getUsage(packageName);
+        return Math.max(0, max - used);
+    }
+    
+    // Prüfen ob noch verfügbar
+    function isAvailable(packageName) {
+        return getRemaining(packageName) > 0;
+    }
+    
+    // UI aktualisieren
+    function updateUI() {
+        // Basic
+        const basicRemaining = getRemaining("Basic");
+        document.getElementById("basic-left").innerText = basicRemaining;
+        const basicBtn = document.getElementById("btn-basic");
+        if (basicRemaining <= 0) {
+            basicBtn.disabled = true;
+            basicBtn.title = "Limit erreicht! Du hast Basic schon 10x genutzt.";
+        } else {
+            basicBtn.disabled = false;
+            basicBtn.title = "";
+        }
+        
+        // Premium
+        const premiumRemaining = getRemaining("Premium");
+        document.getElementById("premium-left").innerText = premiumRemaining;
+        const premiumBtn = document.getElementById("btn-premium");
+        if (premiumRemaining <= 0) {
+            premiumBtn.disabled = true;
+            premiumBtn.title = "Limit erreicht! Du hast Premium schon 4x genutzt.";
+        } else {
+            premiumBtn.disabled = false;
+            premiumBtn.title = "";
+        }
+        
+        // Ultra
+        const ultraRemaining = getRemaining("Ultra");
+        document.getElementById("ultra-left").innerText = ultraRemaining;
+        const ultraBtn = document.getElementById("btn-ultra");
+        if (ultraRemaining <= 0) {
+            ultraBtn.disabled = true;
+            ultraBtn.title = "Limit erreicht! Du hast Ultra schon 2x genutzt.";
+        } else {
+            ultraBtn.disabled = false;
+            ultraBtn.title = "";
+        }
+    }
+    
+    // Discord öffnen
+    function openDiscord() {
+        const discordLink = `discord://-/users/${USERNAME}`;
+        const webLink = `https://discord.com/users/${USERNAME}`;
+        window.open(discordLink, '_blank');
+        setTimeout(() => {
+            const fallback = confirm("Discord App öffnet sich nicht? Möchtest du Discord im Browser öffnen?");
+            if (fallback) {
+                window.open(webLink, '_blank');
+            }
+        }, 500);
+    }
+    
     // Kopieren Funktion
     document.getElementById('copyBtn').addEventListener('click', async () => {
         try {
@@ -382,54 +481,69 @@
             alert("Manuell kopieren: " + USERNAME);
         }
     });
-
-    // Discord öffnen
-    function openDiscord() {
-        const discordLink = `discord://-/users/${USERNAME}`;
-        const webLink = `https://discord.com/users/${USERNAME}`;
-        
-        // Versuche App zu öffnen
-        window.open(discordLink, '_blank');
-        
-        // Fallback nach 500ms
-        setTimeout(() => {
-            const fallback = confirm("Discord App öffnet sich nicht? Möchtest du Discord im Browser öffnen?");
-            if (fallback) {
-                window.open(webLink, '_blank');
-            }
-        }, 500);
-    }
-
+    
     // Discord Name klick
     document.getElementById('discordUser').addEventListener('click', openDiscord);
-
-    // Kauf-Buttons (jetzt kostenlos)
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const packageName = btn.getAttribute('data-package');
-            const confirmMsg = `✨ Du hast das ${packageName}-Paket ausgewählt (KOSTENLOS!)\n\n📌 Ablauf:\n1. Discord wird geöffnet\n2. Du schreibst mir: "Hey, ich möchte das ${packageName}-Paket"\n3. Ich baue dir den Server + Bots\n\nJetzt Discord öffnen?`;
-            
-            if (confirm(confirmMsg)) {
-                openDiscord();
-                
-                // Erfolgs-Toast
-                const toast = document.createElement('div');
-                toast.textContent = `✅ ${packageName}-Paket ausgewählt! Schreib mir auf Discord.`;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '80px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = '#2ecc71';
-                toast.style.color = '#fff';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '40px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '9999';
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 4000);
-            }
-        });
+    
+    // Reset Button (nur für Admin / dich selbst)
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        const adminCode = prompt("Admin-Code eingeben (nur für Finn):");
+        if (adminCode === "finn2024") {
+            localStorage.clear();
+            updateUI();
+            alert("✅ Alle Limits wurden zurückgesetzt!");
+        } else if (adminCode !== null) {
+            alert("❌ Falscher Code!");
+        }
     });
+    
+    // Alle Buttons mit Event Listenern versehen
+    document.getElementById('btn-basic').addEventListener('click', () => handleOrder("Basic"));
+    document.getElementById('btn-premium').addEventListener('click', () => handleOrder("Premium"));
+    document.getElementById('btn-ultra').addEventListener('click', () => handleOrder("Ultra"));
+    
+    function handleOrder(packageName) {
+        // Prüfen ob noch verfügbar
+        if (!isAvailable(packageName)) {
+            alert(`❌ Du hast das ${packageName}-Paket bereits ${LIMITS[packageName]}x genutzt! Keine weiteren Bestellungen möglich.`);
+            return;
+        }
+        
+        const remaining = getRemaining(packageName);
+        const max = LIMITS[packageName];
+        
+        const confirmMsg = `✨ Du hast das ${packageName}-Paket ausgewählt (KOSTENLOS!)\n\n📊 Verbleibende Nutzungen: ${remaining} / ${max}\n\n📌 Ablauf:\n1. Discord wird geöffnet\n2. Du schreibst mir: "Hey, ich möchte das ${packageName}-Paket"\n3. Ich baue dir den Server + Bots\n\nJetzt Discord öffnen?`;
+        
+        if (confirm(confirmMsg)) {
+            // Nutzung erhöhen
+            incrementUsage(packageName);
+            updateUI();
+            openDiscord();
+            
+            // Toast Nachricht
+            const newRemaining = getRemaining(packageName);
+            const toast = document.createElement('div');
+            toast.textContent = `✅ ${packageName}-Paket ausgewählt! Noch ${newRemaining}/${LIMITS[packageName]} Nutzungen übrig. Schreib mir auf Discord.`;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '80px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#2ecc71';
+            toast.style.color = '#fff';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '40px';
+            toast.style.fontWeight = 'bold';
+            toast.style.zIndex = '9999';
+            toast.style.fontSize = '0.9rem';
+            toast.style.whiteSpace = 'nowrap';
+            toast.style.fontFamily = 'inherit';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+    }
+    
+    // UI beim Laden aktualisieren
+    updateUI();
 </script>
 </body>
 </html>
